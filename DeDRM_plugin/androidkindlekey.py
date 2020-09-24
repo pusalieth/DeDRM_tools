@@ -340,7 +340,7 @@ def cli_main():
 
     try:
         opts, args = getopt.getopt(argv[1:], "hb:")
-    except getopt.GetoptError, err:
+    except getopt.GetoptError as err:
         usage(progname)
         print(u"\nError in options or arguments: {0}".format(err.args[0]))
         return 2

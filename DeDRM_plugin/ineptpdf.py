@@ -383,7 +383,7 @@ def _load_crypto_pycrypto():
             self._rsa = _RSA.construct(key)
 
         def bytesToNumber(self, bytes):
-            total = 0L
+            total = 0
             for byte in bytes:
                 total = (total << 8) + byte
             return total
@@ -411,7 +411,7 @@ ARC4, RSA, AES = _load_crypto()
 try:
     from cStringIO import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 
 
 # Do we generate cross reference streams on output?
@@ -949,7 +949,7 @@ class PSStackParser(PSBaseParser):
                 try:
                     (pos, objs) = self.end_type('d')
                     if len(objs) % 2 != 0:
-                        print "Incomplete dictionary construct"
+                        print("Incomplete dictionary construct")
                         objs.append("") # this isn't necessary.
                         # temporary fix. is this due to rental books?
                         # raise PSSyntaxError(
@@ -1619,15 +1619,15 @@ class PDFDocument(object):
                 V = ord(bookkey[0])
                 bookkey = bookkey[1:]
             else:
-                print "ebx_V is %d  and ebx_type is %d" % (ebx_V, ebx_type)
-                print "length is %d and len(bookkey) is %d" % (length, len(bookkey))
-                print "bookkey[0] is %d" % ord(bookkey[0])
+                print(("ebx_V is %d  and ebx_type is %d" % (ebx_V, ebx_type)))
+                print(("length is %d and len(bookkey) is %d" % (length, len(bookkey))))
+                print(("bookkey[0] is %d" % ord(bookkey[0])))
                 raise ADEPTError('error decrypting book session key - mismatched length')
         else:
             # proper length unknown try with whatever you have
-            print "ebx_V is %d  and ebx_type is %d" % (ebx_V, ebx_type)
-            print "length is %d and len(bookkey) is %d" % (length, len(bookkey))
-            print "bookkey[0] is %d" % ord(bookkey[0])
+            print(("ebx_V is %d  and ebx_type is %d" % (ebx_V, ebx_type)))
+            print(("length is %d and len(bookkey) is %d" % (length, len(bookkey))))
+            print(("bookkey[0] is %d" % ord(bookkey[0])))
             if ebx_V == 3:
                 V = 3
             else:
@@ -2190,7 +2190,7 @@ def decryptBook(userkey, inpath, outpath):
             try:
                 serializer.dump(outf)
             except Exception as e:
-                print u"error writing pdf: {0}".format(e.args[0])
+                print((u"error writing pdf: {0}".format(e.args[0])))
                 return 2
     return 0
 
@@ -2201,13 +2201,13 @@ def cli_main():
     argv=unicode_argv()
     progname = os.path.basename(argv[0])
     if len(argv) != 4:
-        print u"usage: {0} <keyfile.der> <inbook.pdf> <outbook.pdf>".format(progname)
+        print((u"usage: {0} <keyfile.der> <inbook.pdf> <outbook.pdf>".format(progname)))
         return 1
     keypath, inpath, outpath = argv[1:]
     userkey = open(keypath,'rb').read()
     result = decryptBook(userkey, inpath, outpath)
     if result == 0:
-        print u"Successfully decrypted {0:s} as {1:s}".format(os.path.basename(inpath),os.path.basename(outpath))
+        print((u"Successfully decrypted {0:s} as {1:s}".format(os.path.basename(inpath),os.path.basename(outpath))))
     return result
 
 

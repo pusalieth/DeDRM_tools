@@ -979,41 +979,41 @@ if iswindows:
             print ('Could not find the folder in which to look for kinfoFiles.')
         else:
             # Probably not the best. To Fix (shouldn't ignore in encoding) or use utf-8
-            print(u'searching for kinfoFiles in ' + path.encode('ascii', 'ignore'))
+            print((u'searching for kinfoFiles in ' + path.encode('ascii', 'ignore')))
 
             # look for (K4PC 1.25.1 and later) .kinf2018 file
             kinfopath = path +'\\Amazon\\Kindle\\storage\\.kinf2018'
             if os.path.isfile(kinfopath):
                 found = True
-                print('Found K4PC 1.25+ kinf2018 file: ' + kinfopath.encode('ascii','ignore'))
+                print(('Found K4PC 1.25+ kinf2018 file: ' + kinfopath.encode('ascii','ignore')))
                 kInfoFiles.append(kinfopath)
                 
             # look for (K4PC 1.9.0 and later) .kinf2011 file
             kinfopath = path +'\\Amazon\\Kindle\\storage\\.kinf2011'
             if os.path.isfile(kinfopath):
                 found = True
-                print('Found K4PC 1.9+ kinf2011 file: ' + kinfopath.encode('ascii','ignore'))
+                print(('Found K4PC 1.9+ kinf2011 file: ' + kinfopath.encode('ascii','ignore')))
                 kInfoFiles.append(kinfopath)
 
             # look for (K4PC 1.6.0 and later) rainier.2.1.1.kinf file
             kinfopath = path +'\\Amazon\\Kindle\\storage\\rainier.2.1.1.kinf'
             if os.path.isfile(kinfopath):
                 found = True
-                print('Found K4PC 1.6-1.8 kinf file: ' + kinfopath)
+                print(('Found K4PC 1.6-1.8 kinf file: ' + kinfopath))
                 kInfoFiles.append(kinfopath)
 
             # look for (K4PC 1.5.0 and later) rainier.2.1.1.kinf file
             kinfopath = path +'\\Amazon\\Kindle For PC\\storage\\rainier.2.1.1.kinf'
             if os.path.isfile(kinfopath):
                 found = True
-                print('Found K4PC 1.5 kinf file: ' + kinfopath)
+                print(('Found K4PC 1.5 kinf file: ' + kinfopath))
                 kInfoFiles.append(kinfopath)
 
            # look for original (earlier than K4PC 1.5.0) kindle-info files
             kinfopath = path +'\\Amazon\\Kindle For PC\\{AMAwzsaPaaZAzmZzZQzgZCAkZ3AjA_AY}\\kindle.info'
             if os.path.isfile(kinfopath):
                 found = True
-                print('Found K4PC kindle.info file: ' + kinfopath)
+                print(('Found K4PC kindle.info file: ' + kinfopath))
                 kInfoFiles.append(kinfopath)
 
         if not found:
@@ -1166,9 +1166,9 @@ if iswindows:
             # store values used in decryption
             DB['IDString'] = GetIDString()
             DB['UserName'] = GetUserName()
-            print u"Decrypted key file using IDString '{0:s}' and UserName '{1:s}'".format(GetIDString(), GetUserName().encode('hex'))
+            print((u"Decrypted key file using IDString '{0:s}' and UserName '{1:s}'".format(GetIDString(), GetUserName().encode('hex'))))
         else:
-            print u"Couldn't decrypt file."
+            print(u"Couldn't decrypt file.")
             DB = {}
         return DB
 elif isosx:
@@ -1453,49 +1453,49 @@ elif isosx:
         testpath = home + '/Library/Containers/com.amazon.Kindle/Data/Library/Application Support/Kindle/storage/.kinf2018'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kinf2018 file: ' + testpath)
+            print(('Found k4Mac kinf2018 file: ' + testpath))
             found = True
         # check for  .kinf2018 files
         testpath = home + '/Library/Application Support/Kindle/storage/.kinf2018'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kinf2018 file: ' + testpath)
+            print(('Found k4Mac kinf2018 file: ' + testpath))
             found = True
         # check for  .kinf2011 file in new location (App Store Kindle for Mac)
         testpath = home + '/Library/Containers/com.amazon.Kindle/Data/Library/Application Support/Kindle/storage/.kinf2011'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kinf2011 file: ' + testpath)
+            print(('Found k4Mac kinf2011 file: ' + testpath))
             found = True
         # check for  .kinf2011 files from 1.10
         testpath = home + '/Library/Application Support/Kindle/storage/.kinf2011'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kinf2011 file: ' + testpath)
+            print(('Found k4Mac kinf2011 file: ' + testpath))
             found = True
         # check for  .rainier-2.1.1-kinf files from 1.6
         testpath = home + '/Library/Application Support/Kindle/storage/.rainier-2.1.1-kinf'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac rainier file: ' + testpath)
+            print(('Found k4Mac rainier file: ' + testpath))
             found = True
         # check for  .kindle-info files from 1.4
         testpath = home + '/Library/Application Support/Kindle/storage/.kindle-info'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kindle-info file: ' + testpath)
+            print(('Found k4Mac kindle-info file: ' + testpath))
             found = True
         # check for  .kindle-info file from 1.2.2
         testpath = home + '/Library/Application Support/Amazon/Kindle/storage/.kindle-info'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kindle-info file: ' + testpath)
+            print(('Found k4Mac kindle-info file: ' + testpath))
             found = True
         # check for  .kindle-info file from 1.0 beta 1 (27214)
         testpath = home + '/Library/Application Support/Amazon/Kindle for Mac/storage/.kindle-info'
         if os.path.isfile(testpath):
             kInfoFiles.append(testpath)
-            print('Found k4Mac kindle-info file: ' + testpath)
+            print(('Found k4Mac kindle-info file: ' + testpath))
             found = True
         if not found:
             print('No k4Mac kindle-info/rainier/kinf2011 files have been found.')
@@ -1649,11 +1649,11 @@ elif isosx:
                 pass
         if len(DB)>6:
             # store values used in decryption
-            print u"Decrypted key file using IDString '{0:s}' and UserName '{1:s}'".format(IDString, GetUserName())
+            print((u"Decrypted key file using IDString '{0:s}' and UserName '{1:s}'".format(IDString, GetUserName())))
             DB['IDString'] = IDString
             DB['UserName'] = GetUserName()
         else:
-            print u"Couldn't decrypt file."
+            print(u"Couldn't decrypt file.")
             DB = {}
         return DB
 else:
@@ -1683,7 +1683,7 @@ def getkey(outpath, files=[]):
             outfile = outpath
             with file(outfile, 'w') as keyfileout:
                 keyfileout.write(json.dumps(keys[0]))
-            print u"Saved a key to {0}".format(outfile)
+            print((u"Saved a key to {0}".format(outfile)))
         else:
             keycount = 0
             for key in keys:
@@ -1694,16 +1694,16 @@ def getkey(outpath, files=[]):
                         break
                 with file(outfile, 'w') as keyfileout:
                     keyfileout.write(json.dumps(key))
-                print u"Saved a key to {0}".format(outfile)
+                print((u"Saved a key to {0}".format(outfile)))
         return True
     return False
 
 def usage(progname):
-    print u"Finds, decrypts and saves the default Kindle For Mac/PC encryption keys."
-    print u"Keys are saved to the current directory, or a specified output directory."
-    print u"If a file name is passed instead of a directory, only the first key is saved, in that file."
-    print u"Usage:"
-    print u"    {0:s} [-h] [-k <kindle.info>] [<outpath>]".format(progname)
+    print(u"Finds, decrypts and saves the default Kindle For Mac/PC encryption keys.")
+    print(u"Keys are saved to the current directory, or a specified output directory.")
+    print(u"If a file name is passed instead of a directory, only the first key is saved, in that file.")
+    print(u"Usage:")
+    print((u"    {0:s} [-h] [-k <kindle.info>] [<outpath>]".format(progname)))
 
 
 def cli_main():
@@ -1711,12 +1711,12 @@ def cli_main():
     sys.stderr=SafeUnbuffered(sys.stderr)
     argv=unicode_argv()
     progname = os.path.basename(argv[0])
-    print u"{0} v{1}\nCopyright © 2010-2016 by some_updates, Apprentice Alf and Apprentice Harper".format(progname,__version__)
+    print((u"{0} v{1}\nCopyright © 2010-2016 by some_updates, Apprentice Alf and Apprentice Harper".format(progname,__version__)))
 
     try:
         opts, args = getopt.getopt(argv[1:], "hk:")
-    except getopt.GetoptError, err:
-        print u"Error in options or arguments: {0}".format(err.args[0])
+    except getopt.GetoptError as err:
+        print((u"Error in options or arguments: {0}".format(err.args[0])))
         usage(progname)
         sys.exit(2)
 
@@ -1745,7 +1745,7 @@ def cli_main():
     outpath = os.path.realpath(os.path.normpath(outpath))
 
     if not getkey(outpath, files):
-        print u"Could not retrieve Kindle for Mac/PC key."
+        print(u"Could not retrieve Kindle for Mac/PC key.")
     return 0
 
 
@@ -1789,7 +1789,7 @@ def gui_main():
                 keyfileout.write(json.dumps(key))
             success = True
             tkMessageBox.showinfo(progname, u"Key successfully retrieved to {0}".format(outfile))
-    except DrmException, e:
+    except DrmException as e:
         tkMessageBox.showerror(progname, u"Error: {0}".format(str(e)))
     except Exception:
         root.wm_state('normal')

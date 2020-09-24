@@ -497,7 +497,7 @@ def cli_main():
 
     try:
         opts, args = getopt.getopt(argv[1:], "h")
-    except getopt.GetoptError, err:
+    except getopt.GetoptError as err:
         print(u"Error in options or arguments: {0}".format(err.args[0]))
         usage(progname)
         sys.exit(2)
@@ -586,7 +586,7 @@ def gui_main():
                 keyfileout.write(key)
             success = True
             tkMessageBox.showinfo(progname, u"Key successfully retrieved to {0}".format(outfile))
-    except ADEPTError, e:
+    except ADEPTError as e:
         tkMessageBox.showerror(progname, u"Error: {0}".format(str(e)))
     except Exception:
         root.wm_state('normal')
