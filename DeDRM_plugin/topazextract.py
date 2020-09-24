@@ -522,7 +522,7 @@ def cli_main():
             pass
         return 1
 
-    except Exception, e:
+    except Exception as e:
         print(u"Decryption failed\m{0}".format(traceback.format_exc()))
         try:
             tb.cleanup()

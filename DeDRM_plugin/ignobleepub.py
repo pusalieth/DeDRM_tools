@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import with_statement
+from __future__ import print_function
 
 # ignobleepub.pyw, version 4.1
 # Copyright © 2009-2010 by i♥cabbages
@@ -35,13 +36,12 @@ from __future__ import with_statement
 #   3.7 - Tweaked to match ineptepub more closely
 #   3.8 - Fixed to retain zip file metadata (e.g. file modification date)
 #   3.9 - moved unicode_argv call inside main for Windows DeDRM compatibility
-#   4.0 - Work if TkInter is missing
+#   4.0 - Work if tkinter is missing
 #   4.1 - Import tkFileDialog, don't assume something else will import it.
 
 """
 Decrypt Barnes & Noble encrypted ePub books.
 """
-from __future__ import print_function
 
 __license__ = 'GPL v3'
 __version__ = "4.1"
@@ -338,49 +338,49 @@ def cli_main():
 
 def gui_main():
     try:
-        import Tkinter
-        import Tkconstants
+        import tkinter
+        import tkinter.constants
         import tkFileDialog
         import tkMessageBox
         import traceback
     except:
         return cli_main()
 
-    class DecryptionDialog(Tkinter.Frame):
+    class DecryptionDialog(tkinter.Frame):
         def __init__(self, root):
-            Tkinter.Frame.__init__(self, root, border=5)
-            self.status = Tkinter.Label(self, text=u"Select files for decryption")
-            self.status.pack(fill=Tkconstants.X, expand=1)
-            body = Tkinter.Frame(self)
-            body.pack(fill=Tkconstants.X, expand=1)
-            sticky = Tkconstants.E + Tkconstants.W
+            tkinter.Frame.__init__(self, root, border=5)
+            self.status = tkinter.Label(self, text=u"Select files for decryption")
+            self.status.pack(fill=tkinter.constants.X, expand=1)
+            body = tkinter.Frame(self)
+            body.pack(fill=tkinter.constants.X, expand=1)
+            sticky = tkinter.constants.E + tkinter.constants.W
             body.grid_columnconfigure(1, weight=2)
-            Tkinter.Label(body, text=u"Key file").grid(row=0)
-            self.keypath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Key file").grid(row=0)
+            self.keypath = tkinter.Entry(body, width=30)
             self.keypath.grid(row=0, column=1, sticky=sticky)
             if os.path.exists(u"bnepubkey.b64"):
                 self.keypath.insert(0, u"bnepubkey.b64")
-            button = Tkinter.Button(body, text=u"...", command=self.get_keypath)
+            button = tkinter.Button(body, text=u"...", command=self.get_keypath)
             button.grid(row=0, column=2)
-            Tkinter.Label(body, text=u"Input file").grid(row=1)
-            self.inpath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Input file").grid(row=1)
+            self.inpath = tkinter.Entry(body, width=30)
             self.inpath.grid(row=1, column=1, sticky=sticky)
-            button = Tkinter.Button(body, text=u"...", command=self.get_inpath)
+            button = tkinter.Button(body, text=u"...", command=self.get_inpath)
             button.grid(row=1, column=2)
-            Tkinter.Label(body, text=u"Output file").grid(row=2)
-            self.outpath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Output file").grid(row=2)
+            self.outpath = tkinter.Entry(body, width=30)
             self.outpath.grid(row=2, column=1, sticky=sticky)
-            button = Tkinter.Button(body, text=u"...", command=self.get_outpath)
+            button = tkinter.Button(body, text=u"...", command=self.get_outpath)
             button.grid(row=2, column=2)
-            buttons = Tkinter.Frame(self)
+            buttons = tkinter.Frame(self)
             buttons.pack()
-            botton = Tkinter.Button(
+            botton = tkinter.Button(
                 buttons, text=u"Decrypt", width=10, command=self.decrypt)
-            botton.pack(side=Tkconstants.LEFT)
-            Tkinter.Frame(buttons, width=10).pack(side=Tkconstants.LEFT)
-            button = Tkinter.Button(
+            botton.pack(side=tkinter.constants.LEFT)
+            tkinter.Frame(buttons, width=10).pack(side=tkinter.constants.LEFT)
+            button = tkinter.Button(
                 buttons, text=u"Quit", width=10, command=self.quit)
-            button.pack(side=Tkconstants.RIGHT)
+            button.pack(side=tkinter.constants.RIGHT)
 
         def get_keypath(self):
             keypath = tkFileDialog.askopenfilename(
@@ -390,7 +390,7 @@ def gui_main():
                            ('All Files', '.*')])
             if keypath:
                 keypath = os.path.normpath(keypath)
-                self.keypath.delete(0, Tkconstants.END)
+                self.keypath.delete(0, tkinter.constants.END)
                 self.keypath.insert(0, keypath)
             return
 
@@ -400,7 +400,7 @@ def gui_main():
                 defaultextension=u".epub", filetypes=[('ePub files', '.epub')])
             if inpath:
                 inpath = os.path.normpath(inpath)
-                self.inpath.delete(0, Tkconstants.END)
+                self.inpath.delete(0, tkinter.constants.END)
                 self.inpath.insert(0, inpath)
             return
 
@@ -410,7 +410,7 @@ def gui_main():
                 defaultextension=u".epub", filetypes=[('ePub files', '.epub')])
             if outpath:
                 outpath = os.path.normpath(outpath)
-                self.outpath.delete(0, Tkconstants.END)
+                self.outpath.delete(0, tkinter.constants.END)
                 self.outpath.insert(0, outpath)
             return
 
@@ -434,7 +434,7 @@ def gui_main():
             self.status['text'] = u"Decrypting..."
             try:
                 decrypt_status = decryptBook(userkey, inpath, outpath)
-            except Exception, e:
+            except Exception as e:
                 self.status['text'] = u"Error: {0}".format(e.args[0])
                 return
             if decrypt_status == 0:
@@ -442,11 +442,11 @@ def gui_main():
             else:
                 self.status['text'] = u"The was an error decrypting the file."
 
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     root.title(u"Barnes & Noble ePub Decrypter v.{0}".format(__version__))
     root.resizable(True, False)
     root.minsize(300, 0)
-    DecryptionDialog(root).pack(fill=Tkconstants.X, expand=1)
+    DecryptionDialog(root).pack(fill=tkinter.constants.X, expand=1)
     root.mainloop()
     return 0
 

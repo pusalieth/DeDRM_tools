@@ -307,7 +307,7 @@ class EreaderProcessor(object):
             # self.num_xtextsize_pages = struct.unpack('>H', r[54:54+2])[0]
             # self.first_xtextsize_page = struct.unpack('>H', r[52:52+2])[0]
 
-            # **before** data record 1 was decrypted and unshuffled, it contained data
+            # **before** data record 1 was decrypted and unshuffed, it contained data
             # to create an XOR table and which is used to fix footnote record 0, link records, chapter records, etc
             self.xortable_offset  = struct.unpack('>H', r[40:40+2])[0]
             self.xortable_size = struct.unpack('>H', r[42:42+2])[0]

@@ -169,44 +169,44 @@ def cli_main():
 
 def gui_main():
     try:
-        import Tkinter
+        import tkinter
         import tkFileDialog
-        import Tkconstants
+        import tkinter.constants
         import tkMessageBox
         import traceback
     except:
         return cli_main()
 
-    class DecryptionDialog(Tkinter.Frame):
+    class DecryptionDialog(tkinter.Frame):
         def __init__(self, root):
-            Tkinter.Frame.__init__(self, root, border=5)
-            self.status = Tkinter.Label(self, text=u"Enter parameters")
-            self.status.pack(fill=Tkconstants.X, expand=1)
-            body = Tkinter.Frame(self)
-            body.pack(fill=Tkconstants.X, expand=1)
-            sticky = Tkconstants.E + Tkconstants.W
+            tkinter.Frame.__init__(self, root, border=5)
+            self.status = tkinter.Label(self, text=u"Enter parameters")
+            self.status.pack(fill=tkinter.constants.X, expand=1)
+            body = tkinter.Frame(self)
+            body.pack(fill=tkinter.constants.X, expand=1)
+            sticky = tkinter.constants.E + tkinter.constants.W
             body.grid_columnconfigure(1, weight=2)
-            Tkinter.Label(body, text=u"Account email address").grid(row=0)
-            self.name = Tkinter.Entry(body, width=40)
+            tkinter.Label(body, text=u"Account email address").grid(row=0)
+            self.name = tkinter.Entry(body, width=40)
             self.name.grid(row=0, column=1, sticky=sticky)
-            Tkinter.Label(body, text=u"Account password").grid(row=1)
-            self.ccn = Tkinter.Entry(body, width=40)
+            tkinter.Label(body, text=u"Account password").grid(row=1)
+            self.ccn = tkinter.Entry(body, width=40)
             self.ccn.grid(row=1, column=1, sticky=sticky)
-            Tkinter.Label(body, text=u"Output file").grid(row=2)
-            self.keypath = Tkinter.Entry(body, width=40)
+            tkinter.Label(body, text=u"Output file").grid(row=2)
+            self.keypath = tkinter.Entry(body, width=40)
             self.keypath.grid(row=2, column=1, sticky=sticky)
             self.keypath.insert(2, u"bnepubkey.b64")
-            button = Tkinter.Button(body, text=u"...", command=self.get_keypath)
+            button = tkinter.Button(body, text=u"...", command=self.get_keypath)
             button.grid(row=2, column=2)
-            buttons = Tkinter.Frame(self)
+            buttons = tkinter.Frame(self)
             buttons.pack()
-            botton = Tkinter.Button(
+            botton = tkinter.Button(
                 buttons, text=u"Fetch", width=10, command=self.generate)
-            botton.pack(side=Tkconstants.LEFT)
-            Tkinter.Frame(buttons, width=10).pack(side=Tkconstants.LEFT)
-            button = Tkinter.Button(
+            botton.pack(side=tkinter.constants.LEFT)
+            tkinter.Frame(buttons, width=10).pack(side=tkinter.constants.LEFT)
+            button = tkinter.Button(
                 buttons, text=u"Quit", width=10, command=self.quit)
-            button.pack(side=Tkconstants.RIGHT)
+            button.pack(side=tkinter.constants.RIGHT)
 
         def get_keypath(self):
             keypath = tkFileDialog.asksaveasfilename(
@@ -216,7 +216,7 @@ def gui_main():
                            ('All Files', '.*')])
             if keypath:
                 keypath = os.path.normpath(keypath)
-                self.keypath.delete(0, Tkconstants.END)
+                self.keypath.delete(0, tkinter.constants.END)
                 self.keypath.insert(0, keypath)
             return
 
@@ -236,7 +236,7 @@ def gui_main():
             self.status['text'] = u"Fetching..."
             try:
                 userkey = fetch_key(email, password)
-            except Exception, e:
+            except Exception as e:
                 self.status['text'] = u"Error: {0}".format(e.args[0])
                 return
             if len(userkey) == 28:
@@ -245,11 +245,11 @@ def gui_main():
             else:
                 self.status['text'] = u"Keyfile fetch failed."
 
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     root.title(u"Barnes & Noble ePub Keyfile Fetch v.{0}".format(__version__))
     root.resizable(True, False)
     root.minsize(300, 0)
-    DecryptionDialog(root).pack(fill=Tkconstants.X, expand=1)
+    DecryptionDialog(root).pack(fill=tkinter.constants.X, expand=1)
     root.mainloop()
     return 0
 

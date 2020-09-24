@@ -377,20 +377,20 @@ class ZipInfo (object):
                 elif ln == 0:
                     counts = ()
                 else:
-                    raise RuntimeError, "Corrupt extra field %s"%(ln,)
+                    raise RuntimeError("Corrupt extra field %s"%(ln,))
 
                 idx = 0
 
                 # ZIP64 extension (large files and/or large archives)
-                if self.file_size in (0xffffffffffffffffL, 0xffffffffL):
+                if self.file_size in (0xffffffffffffffff, 0xffffffff):
                     self.file_size = counts[idx]
                     idx += 1
 
-                if self.compress_size == 0xFFFFFFFFL:
+                if self.compress_size == 0xFFFFFFFF:
                     self.compress_size = counts[idx]
                     idx += 1
 
-                if self.header_offset == 0xffffffffL:
+                if self.header_offset == 0xffffffff:
                     old = self.header_offset
                     self.header_offset = counts[idx]
                     idx+=1
@@ -651,10 +651,9 @@ class ZipFile:
             pass
         elif compression == ZIP_DEFLATED:
             if not zlib:
-                raise RuntimeError,\
-                      "Compression requires the (missing) zlib module"
+                raise RuntimeError("Compression requires the (missing) zlib module")
         else:
-            raise RuntimeError, "That compression method is not supported"
+            raise RuntimeError("That compression method is not supported")
 
         self._allowZip64 = allowZip64
         self._didModify = False
@@ -699,7 +698,7 @@ class ZipFile:
             if not self._filePassed:
                 self.fp.close()
                 self.fp = None
-            raise RuntimeError, 'Mode must be "r", "w" or "a"'
+            raise RuntimeError("Mode must be 'r', 'w' or 'a'")
 
     def __enter__(self):
         return self
@@ -723,7 +722,7 @@ class ZipFile:
         fp = self.fp
         endrec = _EndRecData(fp)
         if not endrec:
-            raise BadZipfile, "File is not a zip file"
+            raise BadZipfile("File is not a zip file")
         if self.debug > 1:
             print endrec
         size_cd = endrec[_ECD_SIZE]             # bytes in central directory
@@ -748,7 +747,7 @@ class ZipFile:
         while total < size_cd:
             centdir = fp.read(sizeCentralDir)
             if centdir[0:4] != stringCentralDir:
-                raise BadZipfile, "Bad magic number for central directory"
+                raise BadZipfile("Bad magic number for central directory")
             centdir = struct.unpack(structCentralDir, centdir)
             if self.debug > 2:
                 print centdir
@@ -859,7 +858,7 @@ class ZipFile:
         # Skip the file header:
         fheader = zef_file.read(sizeFileHeader)
         if fheader[0:4] != stringFileHeader:
-            raise BadZipfile, "Bad magic number for file header"
+            raise BadZipfile("Bad magic number for file header")
 
         fheader = struct.unpack(structFileHeader, fheader)
         fname = zef_file.read(fheader[_FH_FILENAME_LENGTH])
@@ -878,7 +877,7 @@ class ZipFile:
             if not pwd:
                 pwd = self.pwd
             if not pwd:
-                raise RuntimeError, "File %s is encrypted, " \
+                raise RuntimeError("File %s is encrypted, " \)
                       "password required for extraction" % name
 
             zd = _ZipDecrypter(pwd)
@@ -1141,7 +1140,7 @@ class ZipFile:
 
                 if zinfo.header_offset > ZIP64_LIMIT:
                     extra.append(zinfo.header_offset)
-                    header_offset = 0xffffffffL
+                    header_offset = 0xffffffff
                 else:
                     header_offset = zinfo.header_offset
 

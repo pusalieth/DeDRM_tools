@@ -1312,7 +1312,7 @@ class PDFDocument(object):
         return
 
     def genkey_adobe_ps(self, param):
-        # nice little offline principal keys dictionary
+        # nice little offine principal keys dictionary
         # global static principal key for German Onleihe / Bibliothek Digital
         principalkeys = { 'bibliothek-digital.de': 'rRwGv2tbpKov1krvv7PO0ws9S436/lArPlfipz5Pqhw='.decode('base64')}
         self.is_printable = self.is_modifiable = self.is_extractable = True
@@ -1333,7 +1333,7 @@ class PDFDocument(object):
         ivector = 16 * chr(0)
         plaintext = AES.new(shakey,AES.MODE_CBC,ivector).decrypt(edclist[9].decode('base64'))
         if plaintext[-16:] != 16 * chr(16):
-            raise IGNOBLEError('Offlinekey cannot be decrypted, aborting ...')
+            raise IGNOBLEError('Offinekey cannot be decrypted, aborting ...')
         pdrlpol = AES.new(plaintext[16:32],AES.MODE_CBC,edclist[2].decode('base64')).decrypt(pdrlpol)
         if ord(pdrlpol[-1]) < 1 or ord(pdrlpol[-1]) > 16:
             raise IGNOBLEError('Could not decrypt PDRLPol, aborting ...')
@@ -2017,7 +2017,7 @@ def decryptBook(userkey, inpath, outpath):
             # help construct to make sure the method runs to the end
             try:
                 serializer.dump(outf)
-            except Exception, e:
+            except Exception as e:
                 print u"error writing pdf: {0}".format(e.args[0])
                 return 2
     return 0
@@ -2041,49 +2041,49 @@ def cli_main():
 
 def gui_main():
     try:
-        import Tkinter
-        import Tkconstants
+        import tkinter
+        import tkinter.constants
         import tkFileDialog
         import tkMessageBox
         import traceback
     except:
         return cli_main()
 
-    class DecryptionDialog(Tkinter.Frame):
+    class DecryptionDialog(tkinter.Frame):
         def __init__(self, root):
-            Tkinter.Frame.__init__(self, root, border=5)
-            self.status = Tkinter.Label(self, text=u"Select files for decryption")
-            self.status.pack(fill=Tkconstants.X, expand=1)
-            body = Tkinter.Frame(self)
-            body.pack(fill=Tkconstants.X, expand=1)
-            sticky = Tkconstants.E + Tkconstants.W
+            tkinter.Frame.__init__(self, root, border=5)
+            self.status = tkinter.Label(self, text=u"Select files for decryption")
+            self.status.pack(fill=tkinter.constants.X, expand=1)
+            body = tkinter.Frame(self)
+            body.pack(fill=tkinter.constants.X, expand=1)
+            sticky = tkinter.constants.E + tkinter.constants.W
             body.grid_columnconfigure(1, weight=2)
-            Tkinter.Label(body, text=u"Key file").grid(row=0)
-            self.keypath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Key file").grid(row=0)
+            self.keypath = tkinter.Entry(body, width=30)
             self.keypath.grid(row=0, column=1, sticky=sticky)
             if os.path.exists(u"bnpdfkey.b64"):
                 self.keypath.insert(0, u"bnpdfkey.b64")
-            button = Tkinter.Button(body, text=u"...", command=self.get_keypath)
+            button = tkinter.Button(body, text=u"...", command=self.get_keypath)
             button.grid(row=0, column=2)
-            Tkinter.Label(body, text=u"Input file").grid(row=1)
-            self.inpath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Input file").grid(row=1)
+            self.inpath = tkinter.Entry(body, width=30)
             self.inpath.grid(row=1, column=1, sticky=sticky)
-            button = Tkinter.Button(body, text=u"...", command=self.get_inpath)
+            button = tkinter.Button(body, text=u"...", command=self.get_inpath)
             button.grid(row=1, column=2)
-            Tkinter.Label(body, text=u"Output file").grid(row=2)
-            self.outpath = Tkinter.Entry(body, width=30)
+            tkinter.Label(body, text=u"Output file").grid(row=2)
+            self.outpath = tkinter.Entry(body, width=30)
             self.outpath.grid(row=2, column=1, sticky=sticky)
-            button = Tkinter.Button(body, text=u"...", command=self.get_outpath)
+            button = tkinter.Button(body, text=u"...", command=self.get_outpath)
             button.grid(row=2, column=2)
-            buttons = Tkinter.Frame(self)
+            buttons = tkinter.Frame(self)
             buttons.pack()
-            botton = Tkinter.Button(
+            botton = tkinter.Button(
                 buttons, text=u"Decrypt", width=10, command=self.decrypt)
-            botton.pack(side=Tkconstants.LEFT)
-            Tkinter.Frame(buttons, width=10).pack(side=Tkconstants.LEFT)
-            button = Tkinter.Button(
+            botton.pack(side=tkinter.constants.LEFT)
+            tkinter.Frame(buttons, width=10).pack(side=tkinter.constants.LEFT)
+            button = tkinter.Button(
                 buttons, text=u"Quit", width=10, command=self.quit)
-            button.pack(side=Tkconstants.RIGHT)
+            button.pack(side=tkinter.constants.RIGHT)
 
         def get_keypath(self):
             keypath = tkFileDialog.askopenfilename(
@@ -2093,7 +2093,7 @@ def gui_main():
                            ('All Files', '.*')])
             if keypath:
                 keypath = os.path.normpath(keypath)
-                self.keypath.delete(0, Tkconstants.END)
+                self.keypath.delete(0, tkinter.constants.END)
                 self.keypath.insert(0, keypath)
             return
 
@@ -2103,7 +2103,7 @@ def gui_main():
                 defaultextension=u".pdf", filetypes=[('PDF files', '.pdf')])
             if inpath:
                 inpath = os.path.normpath(inpath)
-                self.inpath.delete(0, Tkconstants.END)
+                self.inpath.delete(0, tkinter.constants.END)
                 self.inpath.insert(0, inpath)
             return
 
@@ -2113,7 +2113,7 @@ def gui_main():
                 defaultextension=u".pdf", filetypes=[('PDF files', '.pdf')])
             if outpath:
                 outpath = os.path.normpath(outpath)
-                self.outpath.delete(0, Tkconstants.END)
+                self.outpath.delete(0, tkinter.constants.END)
                 self.outpath.insert(0, outpath)
             return
 
@@ -2137,7 +2137,7 @@ def gui_main():
             self.status['text'] = u"Decrypting..."
             try:
                 decrypt_status = decryptBook(userkey, inpath, outpath)
-            except Exception, e:
+            except Exception as e:
                 self.status['text'] = u"Error; {0}".format(e.args[0])
                 return
             if decrypt_status == 0:
@@ -2146,7 +2146,7 @@ def gui_main():
                 self.status['text'] = u"The was an error decrypting the file."
 
 
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     if AES is None:
         root.withdraw()
         tkMessageBox.showerror(
@@ -2157,7 +2157,7 @@ def gui_main():
     root.title(u"Barnes & Noble PDF Decrypter v.{0}".format(__version__))
     root.resizable(True, False)
     root.minsize(370, 0)
-    DecryptionDialog(root).pack(fill=Tkconstants.X, expand=1)
+    DecryptionDialog(root).pack(fill=tkinter.constants.X, expand=1)
     root.mainloop()
     return 0
 

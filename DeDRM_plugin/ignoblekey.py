@@ -280,27 +280,27 @@ def cli_main():
 
 def gui_main():
     try:
-        import Tkinter
-        import Tkconstants
+        import tkinter
+        import tkinter.constants
         import tkMessageBox
         import traceback
     except:
         return cli_main()
 
-    class ExceptionDialog(Tkinter.Frame):
+    class ExceptionDialog(tkinter.Frame):
         def __init__(self, root, text):
-            Tkinter.Frame.__init__(self, root, border=5)
-            label = Tkinter.Label(self, text=u"Unexpected error:",
-                                  anchor=Tkconstants.W, justify=Tkconstants.LEFT)
-            label.pack(fill=Tkconstants.X, expand=0)
-            self.text = Tkinter.Text(self)
-            self.text.pack(fill=Tkconstants.BOTH, expand=1)
+            tkinter.Frame.__init__(self, root, border=5)
+            label = tkinter.Label(self, text=u"Unexpected error:",
+                                  anchor=tkinter.constants.W, justify=tkinter.constants.LEFT)
+            label.pack(fill=tkinter.constants.X, expand=0)
+            self.text = tkinter.Text(self)
+            self.text.pack(fill=tkinter.constants.BOTH, expand=1)
 
-            self.text.insert(Tkconstants.END, text)
+            self.text.insert(tkinter.constants.END, text)
 
 
     argv=unicode_argv()
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     root.withdraw()
     progpath, progname = os.path.split(argv[0])
     success = False
@@ -325,7 +325,7 @@ def gui_main():
         root.wm_state('normal')
         root.title(progname)
         text = traceback.format_exc()
-        ExceptionDialog(root, text).pack(fill=Tkconstants.BOTH, expand=1)
+        ExceptionDialog(root, text).pack(fill=tkinter.constants.BOTH, expand=1)
         root.mainloop()
     if not success:
         return 1

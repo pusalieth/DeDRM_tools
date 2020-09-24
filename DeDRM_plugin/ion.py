@@ -785,7 +785,7 @@ def obfuscate(secret, version):
     obfuscated = bytearray(len(secret))
     wordhash = bytearray(hashlib.sha256(word).digest())
 
-    # shuffle secret and xor it with the first half of the word hash
+    # shuffe secret and xor it with the first half of the word hash
     for i in range(0, len(secret)):
         index = i // (len(secret) // magic) + magic * (i % (len(secret) // magic))
         obfuscated[index] = secret[i] ^ wordhash[index % 16]

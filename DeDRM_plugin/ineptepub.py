@@ -30,7 +30,7 @@ from __future__ import print_function
 #   5.8 - Revised to allow use in calibre plugins to eliminate need for duplicate code
 #   5.9 - Fixed to retain zip file metadata (e.g. file modification date)
 #   6.0 - moved unicode_argv call inside main for Windows DeDRM compatibility
-#   6.1 - Work if TkInter is missing
+#   6.1 - Work if tkinter is missing
 #   6.2 - Handle UTF-8 file names inside an ePub, fix by Jose Luis
 #   6.3 - Add additional check on DER file sanity
 #   6.4 - Remove erroneous check on DER file sanity

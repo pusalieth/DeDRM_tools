@@ -11,14 +11,14 @@ __version__ = '2.7'
 
 # Revision history:
 #  1.0   - Kindle info file decryption, extracted from k4mobidedrm, etc.
-#  1.1   - Added Tkinter to match adobekey.py
+#  1.1   - Added tkinter to match adobekey.py
 #  1.2   - Fixed testing of successful retrieval on Mac
 #  1.3   - Added getkey interface for Windows DeDRM application
 #          Simplified some of the Kindle for Mac code.
 #  1.4   - Remove dependency on alfcrypto
 #  1.5   - moved unicode_argv call inside main for Windows DeDRM compatibility
 #  1.6   - Fixed a problem getting the disk serial numbers
-#  1.7   - Work if TkInter is missing
+#  1.7   - Work if tkinter is missing
 #  1.8   - Fixes for Kindle for Mac, and non-ascii in Windows user names
 #  1.9   - Fixes for Unicode in Windows user names
 #  2.0   - Added comments and extra fix for non-ascii Windows user names
@@ -1751,27 +1751,27 @@ def cli_main():
 
 def gui_main():
     try:
-        import Tkinter
-        import Tkconstants
+        import tkinter
+        import tkinter.constants
         import tkMessageBox
         import traceback
     except:
         return cli_main()
 
-    class ExceptionDialog(Tkinter.Frame):
+    class ExceptionDialog(tkinter.Frame):
         def __init__(self, root, text):
-            Tkinter.Frame.__init__(self, root, border=5)
-            label = Tkinter.Label(self, text=u"Unexpected error:",
-                                  anchor=Tkconstants.W, justify=Tkconstants.LEFT)
-            label.pack(fill=Tkconstants.X, expand=0)
-            self.text = Tkinter.Text(self)
-            self.text.pack(fill=Tkconstants.BOTH, expand=1)
+            tkinter.Frame.__init__(self, root, border=5)
+            label = tkinter.Label(self, text=u"Unexpected error:",
+                                  anchor=tkinter.constants.W, justify=tkinter.constants.LEFT)
+            label.pack(fill=tkinter.constants.X, expand=0)
+            self.text = tkinter.Text(self)
+            self.text.pack(fill=tkinter.constants.BOTH, expand=1)
 
-            self.text.insert(Tkconstants.END, text)
+            self.text.insert(tkinter.constants.END, text)
 
 
     argv=unicode_argv()
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     root.withdraw()
     progpath, progname = os.path.split(argv[0])
     success = False
@@ -1795,7 +1795,7 @@ def gui_main():
         root.wm_state('normal')
         root.title(progname)
         text = traceback.format_exc()
-        ExceptionDialog(root, text).pack(fill=Tkconstants.BOTH, expand=1)
+        ExceptionDialog(root, text).pack(fill=tkinter.constants.BOTH, expand=1)
         root.mainloop()
     if not success:
         return 1
